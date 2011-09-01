@@ -1,0 +1,9 @@
+#!/bin/bash
+
+ensemble-log "restart gmetad"
+service restart gmetad || service start gmetad
+
+ensemble-log "restart apache"
+service restart apache2 || service start apache2
+
+ensemble open-port 80

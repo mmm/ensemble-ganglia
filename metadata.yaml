@@ -1,0 +1,12 @@
+ensemble: formula
+name: ganglia
+revision: 1
+summary: "Ganglia monitoring server"
+description: |
+    Installs a Ganglia monitoring server.
+requires:
+  ganglia-node:
+    interface: monitor
+provides:
+  website:
+    interface: http

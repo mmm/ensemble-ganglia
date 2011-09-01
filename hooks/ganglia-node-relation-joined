@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# send the mothership address
-relation-set server=`hostname -f`
-

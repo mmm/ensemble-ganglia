@@ -1,5 +1,7 @@
 #!/bin/bash
 
 # ganglia is set to add/remove nodes dynamically
-# remove this hook
+
+# send the mothership address
+relation-set server=`hostname -f`
 

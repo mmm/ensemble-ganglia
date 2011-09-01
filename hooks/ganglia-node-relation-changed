@@ -1,46 +1,5 @@
 #!/bin/bash
-set -ue
 
-remote_host=`relation-get hostname`
-if [ -z "$remote_host" ] ; then
-    ensemble-log "remote host not set yet."
-    exit 0
-fi
-export_path=`relation-get mountpoint`
-fstype=`relation-get fstype`
+# ganglia is set to add/remove nodes dynamically
+# remove this hook
 
-local_mountpoint="/var/lib/drupal6/files"
-local_owner="www-data"
-
-create_local_mountpoint() {
-  ensemble-log "creating local mountpoint"
-  umask 002
-  mkdir -p $local_mountpoint
-  # create owner if necessary?
-  chown -f $local_owner.$local_owner $local_mountpoint
-}
-[ -d $local_mountpoint ] || create_local_mountpoint 
-
-share_already_mounted() {
-  # better way to do this?  
-  #maybe... mount | awk -v mnt=$local_mountpoint '{ if ($3 == mnt) print $0 }'
-  `mount | grep -q $local_mountpoint`
-}
-mount_share() {
-  for try in {1..3}; do
-
-    ensemble-log "mounting nfs share"
-    #options=""
-    #mount -t $fstype -o $options $remote_host:$export_path $local_mountpoint
-    mount -t $fstype $remote_host:$export_path $local_mountpoint \
-      && break
-
-    ensemble-log "mount failed: $local_mountpoint"
-    sleep 10
-
-  done
-}
-share_already_mounted || mount_share 
-
-#just in case
-chown -f $local_owner.$local_owner $local_mountpoint

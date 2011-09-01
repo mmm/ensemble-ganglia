@@ -1,8 +1,3 @@
 #!/bin/bash
-set -ue
 
-#local_mountpoint=`config-get mountpoint`
-#
-#umount $local_mountpoint
-#[ $? -eq 0 ] || ensemble-log "umount failed: $local_mountpoint"
-
+# remove this hook

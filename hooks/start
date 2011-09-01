@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ensemble-log "restart gmetad"
-service restart gmetad || service start gmetad
+service gmetad restart || service gmetad start
 
 ensemble-log "restart apache"
-service restart apache2 || service start apache2
+service apache2 restart || service apache2 start
 
 ensemble open-port 80

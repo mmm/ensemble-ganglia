@@ -2,3 +2,5 @@
 
 # ganglia is set to add/remove nodes dynamically
 
+relation-set server=`hostname -f`
+

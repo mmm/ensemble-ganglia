@@ -1,3 +1,7 @@
 #!/bin/bash
 
+ensemble-log "stopping gmetad"
+service gmetad status && service gmetad stop
+
+ensemble-log "stopping apache"
 service apache2 status && service apache2 stop

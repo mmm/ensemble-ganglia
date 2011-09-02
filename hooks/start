@@ -6,4 +6,4 @@ service gmetad restart || service gmetad start
 ensemble-log "restart apache"
 service apache2 restart || service apache2 start
 
-ensemble open-port 80
+open-port 80/TCP

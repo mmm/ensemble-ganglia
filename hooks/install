@@ -4,17 +4,40 @@ set -eu # -x for verbose logging to ensemble debug-log
 
 DEBIAN_FRONTEND=noninteractive apt-get -y install -qq --no-install-recommends gmetad ganglia-monitor ganglia-webfrontend
 
-#gmetad_aleady_configured() {
-#}
-#configure_gmetad() {
-#}
-#gmetad_already_configured || configure_gmetad
+gmetad_already_configured() {
+  false
+}
+configure_gmetad() {
+  mv /etc/ganglia/gmetad.conf /etc/ganglia/gmetad.conf.dist
+  cp templates/gmetad-stub.conf /etc/ganglia/gmetad.conf
+  cat >> /etc/ganglia/gmetad.conf <<EOS
+    data_source "my cluster" localhost
+EOS
+}
+gmetad_already_configured || configure_gmetad
 
-#gmond_aleady_configured() {
-#}
-#configure_gmond() {
-#}
-#gmond_already_configured || configure_gmond
+gmond_already_configured() {
+  false
+}
+configure_gmond() {
+  mv /etc/ganglia/gmond.conf /etc/ganglia/gmond.conf.dist
+  cp templates/gmond-stub.conf /etc/ganglia/gmond.conf
+  mkdir /etc/ganglia/conf.d/
+  cat > /etc/ganglia/conf.d/mycluster.conf <<EOS
+    cluster { 
+      name = "unspecified" 
+      owner = "unspecified" 
+      latlong = "unspecified" 
+      url = "unspecified" 
+    } 
+    udp_send_channel { 
+      host = localhost
+      port = 8649 
+      ttl = 1 
+    } 
+EOS
+}
+gmond_already_configured || configure_gmond
 
 apache_already_configured() {
   [ -L /etc/apache2/conf.d/ganglia.conf ]

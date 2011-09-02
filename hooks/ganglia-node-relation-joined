@@ -9,14 +9,13 @@ cluster_already_configured() {
 }
 configure_cluster() {
   echo "data_source \"$remote_service_name\" localhost" >> /etc/ganglia/gmetad.conf
+  ensemble-log "restart gmetad"
+  service gmetad restart || service gmetad start
 }
 cluster_already_cofigured || configure_cluster
 
-ensemble-log "restart gmetad"
-service gmetad restart || service gmetad start
-
 gmond_already_configured() {
-  false
+  [ -f /etc/ganglia/gmond.conf ] && grep -q $remote_service /etc/ganglia/gmond.conf
 }
 configure_gmond() {
   mv /etc/ganglia/gmond.conf /etc/ganglia/gmond.conf.dist
@@ -24,10 +23,9 @@ configure_gmond() {
   sed -i "s/GANGLIA_CLUSTER_NAME/$remote_service_name/" /etc/ganglia/gmond.conf
   sed -i "s/GANGLIA_SERVER/localhost/" /etc/ganglia/gmond.conf
   sed -i "s/GANGLIA_LOCATION/monitor/" /etc/ganglia/gmond.conf
+  ensemble-log "restart gmond"
+  service ganglia-monitor restart || service ganglia-monitor start
 }
 gmond_already_configured || configure_gmond
-
-ensemble-log "restart gmond"
-service ganglia-monitor restart || service ganglia-monitor start
 
 relation-set server=`hostname -f`

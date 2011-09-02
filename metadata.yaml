@@ -1,6 +1,6 @@
 ensemble: formula
 name: ganglia
-revision: 11
+revision: 12
 summary: "Ganglia monitoring server"
 description: |
     Installs a Ganglia monitoring server.

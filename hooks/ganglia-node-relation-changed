@@ -2,6 +2,3 @@
 
 # ganglia is set to add/remove nodes dynamically
 
-# send the mothership address
-relation-set server=`hostname -f`
-

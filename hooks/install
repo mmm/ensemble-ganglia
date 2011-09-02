@@ -13,9 +13,6 @@ gmetad_already_configured() {
 configure_gmetad() {
   mv /etc/ganglia/gmetad.conf /etc/ganglia/gmetad.conf.dist
   cp templates/gmetad.conf /etc/ganglia/gmetad.conf
-  cat >> /etc/ganglia/gmetad.conf <<EOS
-    data_source "my cluster" localhost
-EOS
 }
 gmetad_already_configured || configure_gmetad
 

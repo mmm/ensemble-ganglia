@@ -1,5 +1,8 @@
 #!/bin/bash
 
+ensemble-log "stopping gmond"
+service ganglia-monitor status && service ganglia-monitor stop
+
 ensemble-log "stopping gmetad"
 service gmetad status && service gmetad stop
 

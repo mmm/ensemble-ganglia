@@ -15,7 +15,7 @@ configure_cluster() {
 cluster_already_cofigured || configure_cluster
 
 gmond_already_configured() {
-  [ -f /etc/ganglia/gmond.conf ] && grep -q $remote_service /etc/ganglia/gmond.conf
+  [ -f /etc/ganglia/gmond.conf ] && grep -q $remote_service_name /etc/ganglia/gmond.conf
 }
 configure_gmond() {
   mv /etc/ganglia/gmond.conf /etc/ganglia/gmond.conf.dist

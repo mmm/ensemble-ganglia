@@ -1,10 +1,10 @@
 #!/bin/bash
 
-ensemble-log "stopping gmond"
+juju-log "stopping gmond"
 service ganglia-monitor stop
 
-ensemble-log "stopping gmetad"
+juju-log "stopping gmetad"
 service gmetad status && service gmetad stop
 
-ensemble-log "stopping apache"
+juju-log "stopping apache"
 service apache2 status && service apache2 stop

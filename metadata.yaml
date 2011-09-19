@@ -1,4 +1,3 @@
-ensemble: formula
 name: ganglia
 revision: 14
 summary: "Ganglia monitoring server"

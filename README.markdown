@@ -1,9 +1,9 @@
 
 # Ganglia
 
-This is an Ensemble formula for Ganglia.
+This is an ubuntu juju charm for Ganglia.
 
-Find out more about [Ensemble](http://ensemble.ubuntu.com/).
+Find out more about [Ubuntu juju](http://juju.ubuntu.com/).
 
 
 # Installation

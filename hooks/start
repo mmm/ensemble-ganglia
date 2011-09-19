@@ -1,9 +1,9 @@
 #!/bin/bash
 
-ensemble-log "restart gmetad"
+juju-log "restart gmetad"
 service gmetad restart || service gmetad start
 
-ensemble-log "restart apache"
+juju-log "restart apache"
 service apache2 restart || service apache2 start
 
 open-port 80/TCP

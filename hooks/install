@@ -2,9 +2,23 @@
 
 set -eu # -x for verbose logging to juju debug-log
 
-DEBIAN_FRONTEND=noninteractive apt-get -y install -qq --no-install-recommends gmetad ganglia-webfrontend
+on_oneiric() {
+  RELEASE_CODE=`lsb_release -a | awk '/Codename/ { print $2 }'`
+  [[ RELEASE_CODE = "oneiric" ]]
+}
+add_ppa() {
+  juju-log "Adding ppa"
+  apt-add-repository ppa:mark-mims/hadoop
+  juju-log "updating cache"
+  apt-get update
+}
+on_oneiric && add_ppa
+
+
+DEBIAN_FRONTEND=noninteractive apt-get -y install -qq --no-install-recommends ganglia-webfrontend=3.1.7-2ubuntu2
+DEBIAN_FRONTEND=noninteractive apt-get -y install -qq --no-install-recommends gmetad=3.1.7-2ubuntu2
 service gmetad status && service gmetad stop
-DEBIAN_FRONTEND=noninteractive apt-get -y install -qq --no-install-recommends ganglia-monitor 
+DEBIAN_FRONTEND=noninteractive apt-get -y install -qq --no-install-recommends ganglia-monitor=3.1.7-2ubuntu2
 service gmond status && service gmond stop
 
 gmetad_already_configured() {

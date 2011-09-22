@@ -2,18 +2,10 @@
 
 set -eu # -x for verbose logging to juju debug-log
 
-on_oneiric() {
-  RELEASE_CODE=`lsb_release -a | awk '/Codename/ { print $2 }'`
-  [[ RELEASE_CODE = "oneiric" ]]
-}
-add_ppa() {
-  juju-log "Adding ppa"
-  apt-add-repository ppa:mark-mims/hadoop
-  juju-log "updating cache"
-  apt-get update
-}
-on_oneiric && add_ppa
-
+juju-log "Adding ppa"
+apt-add-repository ppa:mark-mims/hadoop
+juju-log "updating cache"
+apt-get update
 
 DEBIAN_FRONTEND=noninteractive apt-get -y install -qq --no-install-recommends ganglia-webfrontend=3.1.7-2ubuntu2
 DEBIAN_FRONTEND=noninteractive apt-get -y install -qq --no-install-recommends gmetad=3.1.7-2ubuntu2
